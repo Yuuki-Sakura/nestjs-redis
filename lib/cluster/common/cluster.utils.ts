@@ -8,10 +8,14 @@ import { CONNECTED_SUCCESSFULLY } from '@/messages';
 import { logger } from '../cluster-logger';
 
 export const createClient = (clientOptions: ClusterClientOptions): Cluster => {
-    const { nodes, options, onClientCreated } = clientOptions;
+    const { nodes, options, onClientCreated, proxyHandler } = clientOptions;
 
-    const client = new IORedis.Cluster(nodes, options);
+    let client = new IORedis.Cluster(nodes, options);
     if (onClientCreated) onClientCreated(client);
+
+    if (proxyHandler) {
+        client = new Proxy(client, proxyHandler);
+    }
 
     return client;
 };

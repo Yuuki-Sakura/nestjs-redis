@@ -14,6 +14,7 @@ export interface RedisClientOptions extends RedisOptions {
      * - rediss:// https://www.iana.org/assignments/uri-schemes/prov/rediss
      */
     url?: string;
+    proxyHandler?: ProxyHandler<Redis>;
     /**
      * This function will be executed as soon as the client is created.
      *

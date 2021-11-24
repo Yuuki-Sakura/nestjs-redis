@@ -8,10 +8,14 @@ import { CONNECTED_SUCCESSFULLY } from '@/messages';
 import { logger } from '../redis-logger';
 
 export const createClient = (clientOptions: RedisClientOptions): Redis => {
-    const { url, onClientCreated, ...redisOptions } = clientOptions;
+    const { url, onClientCreated, proxyHandler, ...redisOptions } = clientOptions;
 
-    const client = url ? new IORedis(url, redisOptions) : new IORedis(redisOptions);
+    let client = url ? new IORedis(url, redisOptions) : new IORedis(redisOptions);
     if (onClientCreated) onClientCreated(client);
+
+    if (proxyHandler) {
+        client = new Proxy(client, proxyHandler);
+    }
 
     return client;
 };

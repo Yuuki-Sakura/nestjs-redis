@@ -15,6 +15,7 @@ export interface ClusterClientOptions {
      * The options of the cluster.
      */
     options?: ClusterOptions;
+    proxyHandler?: ProxyHandler<Cluster>;
     /**
      * This function will be executed as soon as the client is created.
      *
