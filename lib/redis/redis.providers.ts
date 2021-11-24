@@ -85,11 +85,18 @@ export const redisClientsProvider: FactoryProvider<RedisClients> = {
             options.config.forEach(item =>
                 clients.set(
                     item.namespace ?? DEFAULT_REDIS_NAMESPACE,
-                    createClient({ ...options.commonOptions, ...item })
+                    createClient({
+                        ...options.commonOptions,
+                        ...item,
+                        proxyHandler: item.proxyHandler || options.proxyHandler
+                    })
                 )
             );
         } else if (options.config /* single */) {
-            clients.set(options.config.namespace ?? DEFAULT_REDIS_NAMESPACE, createClient(options.config));
+            clients.set(
+                options.config.namespace ?? DEFAULT_REDIS_NAMESPACE,
+                createClient({ ...options.config, proxyHandler: options.config.proxyHandler || options.proxyHandler })
+            );
         }
 
         if (options.readyLog) displayReadyLog(clients);

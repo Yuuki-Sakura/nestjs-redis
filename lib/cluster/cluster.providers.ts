@@ -88,10 +88,16 @@ export const clusterClientsProvider: FactoryProvider<ClusterClients> = {
 
         if (Array.isArray(options.config) /* multiple */) {
             options.config.forEach(item =>
-                clients.set(item.namespace ?? DEFAULT_CLUSTER_NAMESPACE, createClient(item))
+                clients.set(
+                    item.namespace ?? DEFAULT_CLUSTER_NAMESPACE,
+                    createClient({ ...item, proxyHandler: item.proxyHandler || options.proxyHandler })
+                )
             );
         } else if (options.config /* single */) {
-            clients.set(options.config.namespace ?? DEFAULT_CLUSTER_NAMESPACE, createClient(options.config));
+            clients.set(
+                options.config.namespace ?? DEFAULT_CLUSTER_NAMESPACE,
+                createClient({ ...options.config, proxyHandler: options.config.proxyHandler || options.proxyHandler })
+            );
         }
 
         if (options.readyLog) displayReadyLog(clients);

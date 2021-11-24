@@ -31,6 +31,7 @@ export interface ClusterModuleOptions {
      * Default: false
      */
     closeClient?: boolean;
+    proxyHandler?: ProxyHandler<Cluster>;
     /**
      * If `true`, will show a message when the client is ready.
      *

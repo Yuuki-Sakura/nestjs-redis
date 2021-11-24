@@ -34,6 +34,7 @@ export interface RedisModuleOptions {
      * The common options for each client.
      */
     commonOptions?: RedisOptions;
+    proxyHandler?: ProxyHandler<Redis>;
     /**
      * If `true`, will show a message when the client is ready.
      *
