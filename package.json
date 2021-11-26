@@ -1,5 +1,5 @@
 {
-    "name": "@liaoliaots/nestjs-redis",
+    "name": "@adachi-sakura/nestjs-redis",
     "version": "5.1.1",
     "description": "Redis(ioredis) module for NestJS framework",
     "author": "LiaoLiao",
